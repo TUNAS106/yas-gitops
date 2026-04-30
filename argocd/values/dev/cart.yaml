@@ -1,7 +1,7 @@
 backend:
   image:
     repository: tunas106/yas-cart
-    tag: latest
+    tag: 04b4a38
   ingress:
     enabled: true
     host: api-dev.yas.local.com
