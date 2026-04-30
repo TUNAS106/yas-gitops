@@ -57,7 +57,7 @@ spec:
       releaseName: storefront-bff
       parameters:
         - name: backend.image.tag
-          value: main
+          value: latest
         - name: backend.ingress.host
           value: storefront-dev.yas.local.com
         - name: backend.ingress.path
@@ -89,7 +89,7 @@ spec:
       releaseName: storefront-ui
       parameters:
         - name: ui.image.tag
-          value: main
+          value: latest
         - name: ui.extraEnvs[0].name
           value: API_BASE_PATH
         - name: ui.extraEnvs[0].value
@@ -147,7 +147,7 @@ spec:
       releaseName: cart
       parameters:
         - name: backend.image.tag
-          value: main
+          value: latest
         - name: backend.ingress.enabled
           value: "true"
         - name: backend.ingress.host
@@ -181,7 +181,7 @@ spec:
       releaseName: customer
       parameters:
         - name: backend.image.tag
-          value: main
+          value: latest
         - name: backend.ingress.enabled
           value: "true"
         - name: backend.ingress.host
@@ -215,7 +215,7 @@ spec:
       releaseName: product
       parameters:
         - name: backend.image.tag
-          value: main
+          value: latest
         - name: backend.ingress.enabled
           value: "true"
         - name: backend.ingress.host
@@ -249,7 +249,7 @@ spec:
       releaseName: tax
       parameters:
         - name: backend.image.tag
-          value: main
+          value: latest
         - name: backend.ingress.enabled
           value: "true"
         - name: backend.ingress.host
@@ -286,7 +286,7 @@ spec:
 #       releaseName: backoffice-bff
 #       parameters:
 #         - name: backend.image.tag
-#           value: main
+#           value: latest
 #         - name: backend.ingress.host
 #           value: backoffice-dev.yas.local.com
 #         - name: backend.ingress.path
@@ -319,7 +319,7 @@ spec:
 #       releaseName: backoffice-ui
 #       parameters:
 #         - name: ui.image.tag
-#           value: main
+#           value: latest
 #   destination:
 #     server: https://kubernetes.default.svc
 #     namespace: yas-dev
@@ -346,7 +346,7 @@ spec:
 #       releaseName: inventory
 #       parameters:
 #         - name: backend.image.tag
-#           value: main
+#           value: latest
 #         - name: backend.ingress.enabled
 #           value: "true"
 #         - name: backend.ingress.host
@@ -381,7 +381,7 @@ spec:
 #       releaseName: location
 #       parameters:
 #         - name: backend.image.tag
-#           value: main
+#           value: latest
 #         - name: backend.ingress.enabled
 #           value: "true"
 #         - name: backend.ingress.host
@@ -416,7 +416,7 @@ spec:
 #       releaseName: media
 #       parameters:
 #         - name: backend.image.tag
-#           value: main
+#           value: latest
 #         - name: backend.ingress.enabled
 #           value: "true"
 #         - name: backend.ingress.host
@@ -451,7 +451,7 @@ spec:
 #       releaseName: order
 #       parameters:
 #         - name: backend.image.tag
-#           value: main
+#           value: latest
 #         - name: backend.ingress.enabled
 #           value: "true"
 #         - name: backend.ingress.host
@@ -486,7 +486,7 @@ spec:
 #       releaseName: payment
 #       parameters:
 #         - name: backend.image.tag
-#           value: main
+#           value: latest
 #         - name: backend.ingress.enabled
 #           value: "true"
 #         - name: backend.ingress.host
@@ -521,7 +521,7 @@ spec:
 #       releaseName: payment-paypal
 #       parameters:
 #         - name: backend.image.tag
-#           value: main
+#           value: latest
 #         - name: backend.ingress.enabled
 #           value: "true"
 #         - name: backend.ingress.host
@@ -556,7 +556,7 @@ spec:
 #       releaseName: promotion
 #       parameters:
 #         - name: backend.image.tag
-#           value: main
+#           value: latest
 #         - name: backend.ingress.enabled
 #           value: "true"
 #         - name: backend.ingress.host
@@ -591,7 +591,7 @@ spec:
 #       releaseName: rating
 #       parameters:
 #         - name: backend.image.tag
-#           value: main
+#           value: latest
 #         - name: backend.ingress.enabled
 #           value: "true"
 #         - name: backend.ingress.host
@@ -626,7 +626,7 @@ spec:
 #       releaseName: search
 #       parameters:
 #         - name: backend.image.tag
-#           value: main
+#           value: latest
 #         - name: backend.ingress.enabled
 #           value: "true"
 #         - name: backend.ingress.host
@@ -661,7 +661,7 @@ spec:
 #       releaseName: recommendation
 #       parameters:
 #         - name: backend.image.tag
-#           value: main
+#           value: latest
 #         - name: backend.ingress.enabled
 #           value: "true"
 #         - name: backend.ingress.host
@@ -696,7 +696,7 @@ spec:
 #       releaseName: webhook
 #       parameters:
 #         - name: backend.image.tag
-#           value: main
+#           value: latest
 #         - name: backend.ingress.enabled
 #           value: "true"
 #         - name: backend.ingress.host
@@ -731,7 +731,7 @@ spec:
 #       releaseName: sampledata
 #       parameters:
 #         - name: backend.image.tag
-#           value: main
+#           value: latest
 #         - name: backend.ingress.enabled
 #           value: "true"
 #         - name: backend.ingress.host
