@@ -5,15 +5,255 @@ metadata:
   namespace: argocd
 spec:
   project: default
-  source:
-    repoURL: https://github.com/TUNAS106/yas-gitops.git
-    targetRevision: main
-    path: environments/staging/apps
-    directory:
-      recurse: true
+  sources:
+    - repoURL: https://github.com/TUNAS106/yas-gitops.git
+      targetRevision: main
+      path: charts/yas-configuration
+      helm:
+        releaseName: yas-configuration
+        values: |
+          applicationConfig:
+            spring:
+              security:
+                oauth2:
+                  resourceserver:
+                    jwt:
+                      issuer-uri: http://identity.yas.local.com/realms/Yas
+            springdoc:
+              oauthflow:
+                authorization-url: http://identity.yas.local.com/realms/Yas/protocol/openid-connect/auth
+                token-url: http://identity.yas.local.com/realms/Yas/protocol/openid-connect/token
+          mediaApplicationConfig:
+            yas:
+              publicUrl: http://api-staging.yas.local.com/media
+          paymentPaypalApplicationConfig:
+            yas:
+              public:
+                url: http://storefront-staging.yas.local.com/complete-payment
+
+    - repoURL: https://github.com/TUNAS106/yas-gitops.git
+      targetRevision: main
+      path: charts/storefront-bff
+      helm:
+        releaseName: storefront-bff
+        parameters:
+          - name: backend.image.tag
+            value: v1.0.0
+          - name: backend.ingress.host
+            value: storefront-staging.yas.local.com
+          - name: backend.ingress.path
+            value: /
+          - name: backend.serviceMonitor.enabled
+            value: "false"
+
+    - repoURL: https://github.com/TUNAS106/yas-gitops.git
+      targetRevision: main
+      path: charts/storefront-ui
+      helm:
+        releaseName: storefront-ui
+        parameters:
+          - name: ui.image.tag
+            value: v1.0.0
+          - name: ui.extraEnvs[0].name
+            value: API_BASE_PATH
+          - name: ui.extraEnvs[0].value
+            value: http://storefront-staging.yas.local.com/api
+
+    - repoURL: https://github.com/TUNAS106/yas-gitops.git
+      targetRevision: main
+      path: charts/swagger-ui
+      helm:
+        releaseName: swagger-ui
+        parameters:
+          - name: ingress.host
+            value: api-staging.yas.local.com
+          - name: ingress.hosts[0].host
+            value: api-staging.yas.local.com
+
+    - repoURL: https://github.com/TUNAS106/yas-gitops.git
+      targetRevision: main
+      path: charts/cart
+      helm:
+        releaseName: cart
+        parameters:
+          - name: backend.image.tag
+            value: v1.0.0
+          - name: backend.ingress.enabled
+            value: "true"
+          - name: backend.ingress.host
+            value: api-staging.yas.local.com
+          - name: backend.ingress.path
+            value: /cart
+          - name: backend.serviceMonitor.enabled
+            value: "false"
+
+    - repoURL: https://github.com/TUNAS106/yas-gitops.git
+      targetRevision: main
+      path: charts/customer
+      helm:
+        releaseName: customer
+        parameters:
+          - name: backend.image.tag
+            value: v1.0.0
+          - name: backend.ingress.enabled
+            value: "true"
+          - name: backend.ingress.host
+            value: api-staging.yas.local.com
+          - name: backend.ingress.path
+            value: /customer
+          - name: backend.serviceMonitor.enabled
+            value: "false"
+
+    - repoURL: https://github.com/TUNAS106/yas-gitops.git
+      targetRevision: main
+      path: charts/product
+      helm:
+        releaseName: product
+        parameters:
+          - name: backend.image.tag
+            value: v1.0.0
+          - name: backend.ingress.enabled
+            value: "true"
+          - name: backend.ingress.host
+            value: api-staging.yas.local.com
+          - name: backend.ingress.path
+            value: /product
+          - name: backend.serviceMonitor.enabled
+            value: "false"
+
+    - repoURL: https://github.com/TUNAS106/yas-gitops.git
+      targetRevision: main
+      path: charts/tax
+      helm:
+        releaseName: tax
+        parameters:
+          - name: backend.image.tag
+            value: v1.0.0
+          - name: backend.ingress.enabled
+            value: "true"
+          - name: backend.ingress.host
+            value: api-staging.yas.local.com
+          - name: backend.ingress.path
+            value: /tax
+          - name: backend.serviceMonitor.enabled
+            value: "false"
+
+    # disabled for lightweight ArgoCD demo
+    # - repoURL: https://github.com/TUNAS106/yas-gitops.git
+    #   targetRevision: main
+    #   path: charts/backoffice-bff
+    #   helm:
+    #     releaseName: backoffice-bff
+    #     parameters:
+    #       - name: backend.image.tag
+    #         value: v1.0.0
+    # - repoURL: https://github.com/TUNAS106/yas-gitops.git
+    #   targetRevision: main
+    #   path: charts/backoffice-ui
+    #   helm:
+    #     releaseName: backoffice-ui
+    #     parameters:
+    #       - name: ui.image.tag
+    #         value: v1.0.0
+    # - repoURL: https://github.com/TUNAS106/yas-gitops.git
+    #   targetRevision: main
+    #   path: charts/inventory
+    #   helm:
+    #     releaseName: inventory
+    #     parameters:
+    #       - name: backend.image.tag
+    #         value: v1.0.0
+    # - repoURL: https://github.com/TUNAS106/yas-gitops.git
+    #   targetRevision: main
+    #   path: charts/location
+    #   helm:
+    #     releaseName: location
+    #     parameters:
+    #       - name: backend.image.tag
+    #         value: v1.0.0
+    # - repoURL: https://github.com/TUNAS106/yas-gitops.git
+    #   targetRevision: main
+    #   path: charts/media
+    #   helm:
+    #     releaseName: media
+    #     parameters:
+    #       - name: backend.image.tag
+    #         value: v1.0.0
+    # - repoURL: https://github.com/TUNAS106/yas-gitops.git
+    #   targetRevision: main
+    #   path: charts/order
+    #   helm:
+    #     releaseName: order
+    #     parameters:
+    #       - name: backend.image.tag
+    #         value: v1.0.0
+    # - repoURL: https://github.com/TUNAS106/yas-gitops.git
+    #   targetRevision: main
+    #   path: charts/payment
+    #   helm:
+    #     releaseName: payment
+    #     parameters:
+    #       - name: backend.image.tag
+    #         value: v1.0.0
+    # - repoURL: https://github.com/TUNAS106/yas-gitops.git
+    #   targetRevision: main
+    #   path: charts/payment-paypal
+    #   helm:
+    #     releaseName: payment-paypal
+    #     parameters:
+    #       - name: backend.image.tag
+    #         value: v1.0.0
+    # - repoURL: https://github.com/TUNAS106/yas-gitops.git
+    #   targetRevision: main
+    #   path: charts/promotion
+    #   helm:
+    #     releaseName: promotion
+    #     parameters:
+    #       - name: backend.image.tag
+    #         value: v1.0.0
+    # - repoURL: https://github.com/TUNAS106/yas-gitops.git
+    #   targetRevision: main
+    #   path: charts/rating
+    #   helm:
+    #     releaseName: rating
+    #     parameters:
+    #       - name: backend.image.tag
+    #         value: v1.0.0
+    # - repoURL: https://github.com/TUNAS106/yas-gitops.git
+    #   targetRevision: main
+    #   path: charts/search
+    #   helm:
+    #     releaseName: search
+    #     parameters:
+    #       - name: backend.image.tag
+    #         value: v1.0.0
+    # - repoURL: https://github.com/TUNAS106/yas-gitops.git
+    #   targetRevision: main
+    #   path: charts/recommendation
+    #   helm:
+    #     releaseName: recommendation
+    #     parameters:
+    #       - name: backend.image.tag
+    #         value: v1.0.0
+    # - repoURL: https://github.com/TUNAS106/yas-gitops.git
+    #   targetRevision: main
+    #   path: charts/webhook
+    #   helm:
+    #     releaseName: webhook
+    #     parameters:
+    #       - name: backend.image.tag
+    #         value: v1.0.0
+    # - repoURL: https://github.com/TUNAS106/yas-gitops.git
+    #   targetRevision: main
+    #   path: charts/sampledata
+    #   helm:
+    #     releaseName: sampledata
+    #     parameters:
+    #       - name: backend.image.tag
+    #         value: v1.0.0
   destination:
     server: https://kubernetes.default.svc
-    namespace: argocd
+    namespace: yas-staging
   syncPolicy:
     automated:
       prune: true
