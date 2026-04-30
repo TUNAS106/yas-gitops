@@ -48,15 +48,6 @@ gitops/
       yas-staging.yaml
   charts/
     ...
-  environments/
-    dev/
-      apps/
-        namespace.yaml
-        applications.yaml
-    staging/
-      apps/
-        namespace.yaml
-        applications.yaml
   README.md
 ```
 
@@ -74,8 +65,8 @@ Khong nen de Application trong GitOps repo tham chieu `../k8s/charts` cua source
   - `api-dev.yas.local.com`
   - `backoffice-dev.yas.local.com`
   - `storefront-dev.yas.local.com`
-- Image tag ban dau: `main`.
-- CI nen thay `main` bang commit SHA moi nhat sau khi build va push image.
+- Image tag ban dau: `latest`.
+- CI nen thay `latest` bang commit SHA moi nhat sau khi build va push image.
 
 `staging`:
 
@@ -120,14 +111,27 @@ kubectl apply -f argocd/applications/yas-dev.yaml
 kubectl apply -f argocd/applications/yas-staging.yaml
 ```
 
-Root application se tao cac Application con trong:
+Root application khong tao Application con nua:
 
 ```text
-environments/dev/apps/
-environments/staging/apps/
+Khong con Application con. Moi moi truong chi co mot ArgoCD Application:
+
+- yas-dev
+- yas-staging
 ```
 
-Moi Application con se sync mot Helm chart vao namespace tuong ung.
+Moi Application dung `spec.sources` de sync nhieu Helm chart trong cung mot moi truong. Cac service dang active cho demo gom:
+
+- `yas-configuration`
+- `storefront-bff`
+- `storefront-ui`
+- `swagger-ui`
+- `cart`
+- `customer`
+- `product`
+- `tax`
+
+Nhung service chua can demo duoc comment trong `argocd/applications/yas-dev.yaml` va `argocd/applications/yas-staging.yaml` voi ly do `disabled for lightweight ArgoCD demo`.
 
 ## CI cap nhat image tag
 
@@ -137,11 +141,14 @@ Vi du dev sau khi push `main`:
 
 ```bash
 yq -i '
-  (.spec.source.helm.parameters[] | select(.name == "backend.image.tag").value) = "a1b2c3d"
-' environments/dev/apps/applications.yaml
+  (.spec.sources[]
+   | select(.path == "charts/tax")
+   | .helm.parameters[]
+   | select(.name == "backend.image.tag")).value = "a1b2c3d"
+' argocd/applications/yas-dev.yaml
 
-git add environments/dev/apps/applications.yaml
-git commit -m "Deploy dev image a1b2c3d"
+git add argocd/applications/yas-dev.yaml
+git commit -m "Deploy dev tax image a1b2c3d"
 git push
 ```
 
@@ -149,24 +156,27 @@ Vi du staging khi tao release tag:
 
 ```bash
 yq -i '
-  (.spec.source.helm.parameters[] | select(.name == "backend.image.tag").value) = "v1.2.3"
-' environments/staging/apps/applications.yaml
+  (.spec.sources[]
+   | select(.path == "charts/tax")
+   | .helm.parameters[]
+   | select(.name == "backend.image.tag")).value = "v1.2.3"
+' argocd/applications/yas-staging.yaml
 
-git add environments/staging/apps/applications.yaml
-git commit -m "Deploy staging v1.2.3"
+git add argocd/applications/yas-staging.yaml
+git commit -m "Deploy staging tax v1.2.3"
 git push
 ```
 
-Neu chi muon update mot service, nen loc them theo Application name. Vi du update `tax` o dev:
+Neu muon update service UI thi doi parameter `ui.image.tag` thay vi `backend.image.tag`. Vi du update `storefront-ui` o dev:
 
 ```bash
 yq -i '
-  (. | select(.metadata.name == "yas-dev-tax").spec.source.helm.parameters[]
-     | select(.name == "backend.image.tag")).value = "a1b2c3d"
-' environments/dev/apps/applications.yaml
+  (.spec.sources[]
+   | select(.path == "charts/storefront-ui")
+   | .helm.parameters[]
+   | select(.name == "ui.image.tag")).value = "a1b2c3d"
+' argocd/applications/yas-dev.yaml
 ```
-
-Voi UI service thi doi parameter `ui.image.tag` thay vi `backend.image.tag`.
 
 ## Rollback bang Git
 
@@ -210,13 +220,12 @@ Trong ArgoCD UI, ban se thay:
 
 - `yas-dev`
 - `yas-staging`
-- cac app con nhu `yas-dev-tax`, `yas-staging-tax`, `yas-dev-storefront-bff`, ...
 
 ## Luu y khi demo
 
 - Jenkins `developer_build` van nen chi deploy preview, khong deploy vao `yas-dev` hoac `yas-staging`.
 - ArgoCD quan ly `yas-dev` va `yas-staging`.
 - Ha tang nang nhu PostgreSQL, Kafka, Elasticsearch, Keycloak, Redis van dung chung tu cac namespace ha tang cu.
-- Neu Minikube thieu tai nguyen, co the tam thoi xoa bot Application con khong can demo trong `environments/*/apps/applications.yaml`, vi du `payment-paypal`, `recommendation`, `search`.
+- Neu Minikube thieu tai nguyen, giu cac service khong can demo o trang thai comment trong `argocd/applications/*.yaml`.
 - Cac host `*-dev.yas.local.com` va `*-staging.yas.local.com` can duoc them vao file hosts tro ve IP Minikube.
 - Neu login Keycloak bi loi redirect URL, can them cac URL dev/staging vao Keycloak client redirect URI.
