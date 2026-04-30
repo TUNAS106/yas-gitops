@@ -64,11 +64,14 @@ spec:
       path: charts/swagger-ui
       helm:
         releaseName: swagger-ui
-        parameters:
-          - name: ingress.host
-            value: api-staging.yas.local.com
-          - name: ingress.hosts[0].host
-            value: api-staging.yas.local.com
+        values: |
+          ingress:
+            host: api-staging.yas.local.com
+            hosts:
+              - host: api-staging.yas.local.com
+                paths:
+                  - path: /swagger-ui
+                    pathType: ImplementationSpecific
 
     - repoURL: https://github.com/TUNAS106/yas-gitops.git
       targetRevision: main
