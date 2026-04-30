@@ -120,7 +120,14 @@ Khong con Application con. Moi moi truong chi co mot ArgoCD Application:
 - yas-staging
 ```
 
-Moi Application dung `spec.sources` de sync nhieu Helm chart trong cung mot moi truong. Cac service dang active cho demo gom:
+Moi Application dung `spec.sources` de sync nhieu Helm chart trong cung mot moi truong. Image repository/tag khong nam truc tiep trong Application spec nua, ma duoc tach ra cac file values:
+
+```text
+argocd/values/dev/<service>.yaml
+argocd/values/staging/<service>.yaml
+```
+
+Cac service dang active cho demo gom:
 
 - `yas-configuration`
 - `storefront-bff`
@@ -139,14 +146,9 @@ ArgoCD theo doi Git, khong tu biet Docker Hub co image moi. Sau khi CI build va 
 Vi du dev sau khi push `main`:
 
 ```bash
-yq -i '
-  (.spec.sources[]
-   | select(.path == "charts/tax")
-   | .helm.parameters[]
-   | select(.name == "backend.image.tag")).value = "a1b2c3d"
-' argocd/applications/yas-dev.yaml
+yq -i '.backend.image.tag = "a1b2c3d"' argocd/values/dev/tax.yaml
 
-git add argocd/applications/yas-dev.yaml
+git add argocd/values/dev/tax.yaml
 git commit -m "Deploy dev tax image a1b2c3d"
 git push
 ```
@@ -154,27 +156,17 @@ git push
 Vi du staging khi tao release tag:
 
 ```bash
-yq -i '
-  (.spec.sources[]
-   | select(.path == "charts/tax")
-   | .helm.parameters[]
-   | select(.name == "backend.image.tag")).value = "v1.2.3"
-' argocd/applications/yas-staging.yaml
+yq -i '.backend.image.tag = "v1.2.3"' argocd/values/staging/tax.yaml
 
-git add argocd/applications/yas-staging.yaml
+git add argocd/values/staging/tax.yaml
 git commit -m "Deploy staging tax v1.2.3"
 git push
 ```
 
-Neu muon update service UI thi doi parameter `ui.image.tag` thay vi `backend.image.tag`. Vi du update `storefront-ui` o dev:
+Neu muon update service UI thi doi `.ui.image.tag` thay vi `.backend.image.tag`. Vi du update `storefront-ui` o dev:
 
 ```bash
-yq -i '
-  (.spec.sources[]
-   | select(.path == "charts/storefront-ui")
-   | .helm.parameters[]
-   | select(.name == "ui.image.tag")).value = "a1b2c3d"
-' argocd/applications/yas-dev.yaml
+yq -i '.ui.image.tag = "a1b2c3d"' argocd/values/dev/storefront-ui.yaml
 ```
 
 ## Rollback bang Git
