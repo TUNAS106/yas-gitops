@@ -53,7 +53,7 @@ spec:
         releaseName: storefront-ui
         parameters:
           - name: ui.image.tag
-            value: v1.0.0
+            value: latest
           - name: ui.extraEnvs[0].name
             value: API_BASE_PATH
           - name: ui.extraEnvs[0].value
