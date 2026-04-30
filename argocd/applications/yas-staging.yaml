@@ -61,21 +61,6 @@ spec:
 
     - repoURL: https://github.com/TUNAS106/yas-gitops.git
       targetRevision: main
-      path: charts/swagger-ui
-      helm:
-        releaseName: swagger-ui
-        parameters:
-          - name: ingress.host
-            value: api-staging.yas.local.com
-          - name: ingress.hosts[0].host
-            value: api-staging.yas.local.com
-          - name: ingress.hosts[0].paths[0].path
-            value: /swagger-ui
-          - name: ingress.hosts[0].paths[0].pathType
-            value: ImplementationSpecific
-
-    - repoURL: https://github.com/TUNAS106/yas-gitops.git
-      targetRevision: main
       path: charts/cart
       helm:
         releaseName: cart
@@ -143,6 +128,14 @@ spec:
             value: "false"
 
     # disabled for lightweight ArgoCD demo
+    # - repoURL: https://github.com/TUNAS106/yas-gitops.git
+    #   targetRevision: main
+    #   path: charts/swagger-ui
+    #   helm:
+    #     releaseName: swagger-ui
+    #     parameters:
+    #       - name: ingress.enabled
+    #         value: "false"
     # - repoURL: https://github.com/TUNAS106/yas-gitops.git
     #   targetRevision: main
     #   path: charts/backoffice-bff

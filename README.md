@@ -125,7 +125,6 @@ Moi Application dung `spec.sources` de sync nhieu Helm chart trong cung mot moi 
 - `yas-configuration`
 - `storefront-bff`
 - `storefront-ui`
-- `swagger-ui`
 - `cart`
 - `customer`
 - `product`
