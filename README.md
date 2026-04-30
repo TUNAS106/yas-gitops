@@ -106,7 +106,7 @@ git push -u origin main
 4. Doi tat ca `repoURL` trong cac file YAML tu:
 
 ```text
-https://github.com/CHANGE_ME/yas-gitops.git
+https://github.com/TUNAS106/yas-gitops.git
 ```
 
 thanh URL repo GitOps that cua ban.

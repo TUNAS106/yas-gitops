@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/CHANGE_ME/yas-gitops.git
+    repoURL: https://github.com/TUNAS106/yas-gitops.git
     targetRevision: main
     path: environments/dev/apps
     directory:

@@ -8,7 +8,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/CHANGE_ME/yas-gitops.git
+    repoURL: https://github.com/TUNAS106/yas-gitops.git
     targetRevision: main
     path: charts/yas-configuration
     helm:
@@ -45,44 +45,12 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: yas-staging-backoffice-bff
-  namespace: argocd
-spec:
-  project: default
-  source:
-    repoURL: https://github.com/CHANGE_ME/yas-gitops.git
-    targetRevision: main
-    path: charts/backoffice-bff
-    helm:
-      releaseName: backoffice-bff
-      parameters:
-        - name: backend.image.tag
-          value: v1.0.0
-        - name: backend.ingress.host
-          value: backoffice-staging.yas.local.com
-        - name: backend.ingress.path
-          value: /
-        - name: backend.serviceMonitor.enabled
-          value: "false"
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: yas-staging
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
   name: yas-staging-storefront-bff
   namespace: argocd
 spec:
   project: default
   source:
-    repoURL: https://github.com/CHANGE_ME/yas-gitops.git
+    repoURL: https://github.com/TUNAS106/yas-gitops.git
     targetRevision: main
     path: charts/storefront-bff
     helm:
@@ -109,38 +77,12 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: yas-staging-backoffice-ui
-  namespace: argocd
-spec:
-  project: default
-  source:
-    repoURL: https://github.com/CHANGE_ME/yas-gitops.git
-    targetRevision: main
-    path: charts/backoffice-ui
-    helm:
-      releaseName: backoffice-ui
-      parameters:
-        - name: ui.image.tag
-          value: v1.0.0
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: yas-staging
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
   name: yas-staging-storefront-ui
   namespace: argocd
 spec:
   project: default
   source:
-    repoURL: https://github.com/CHANGE_ME/yas-gitops.git
+    repoURL: https://github.com/TUNAS106/yas-gitops.git
     targetRevision: main
     path: charts/storefront-ui
     helm:
@@ -170,7 +112,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/CHANGE_ME/yas-gitops.git
+    repoURL: https://github.com/TUNAS106/yas-gitops.git
     targetRevision: main
     path: charts/swagger-ui
     helm:
@@ -198,7 +140,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/CHANGE_ME/yas-gitops.git
+    repoURL: https://github.com/TUNAS106/yas-gitops.git
     targetRevision: main
     path: charts/cart
     helm:
@@ -232,7 +174,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/CHANGE_ME/yas-gitops.git
+    repoURL: https://github.com/TUNAS106/yas-gitops.git
     targetRevision: main
     path: charts/customer
     helm:
@@ -261,216 +203,12 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: yas-staging-inventory
-  namespace: argocd
-spec:
-  project: default
-  source:
-    repoURL: https://github.com/CHANGE_ME/yas-gitops.git
-    targetRevision: main
-    path: charts/inventory
-    helm:
-      releaseName: inventory
-      parameters:
-        - name: backend.image.tag
-          value: v1.0.0
-        - name: backend.ingress.enabled
-          value: "true"
-        - name: backend.ingress.host
-          value: api-staging.yas.local.com
-        - name: backend.ingress.path
-          value: /inventory
-        - name: backend.serviceMonitor.enabled
-          value: "false"
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: yas-staging
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: yas-staging-location
-  namespace: argocd
-spec:
-  project: default
-  source:
-    repoURL: https://github.com/CHANGE_ME/yas-gitops.git
-    targetRevision: main
-    path: charts/location
-    helm:
-      releaseName: location
-      parameters:
-        - name: backend.image.tag
-          value: v1.0.0
-        - name: backend.ingress.enabled
-          value: "true"
-        - name: backend.ingress.host
-          value: api-staging.yas.local.com
-        - name: backend.ingress.path
-          value: /location
-        - name: backend.serviceMonitor.enabled
-          value: "false"
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: yas-staging
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: yas-staging-media
-  namespace: argocd
-spec:
-  project: default
-  source:
-    repoURL: https://github.com/CHANGE_ME/yas-gitops.git
-    targetRevision: main
-    path: charts/media
-    helm:
-      releaseName: media
-      parameters:
-        - name: backend.image.tag
-          value: v1.0.0
-        - name: backend.ingress.enabled
-          value: "true"
-        - name: backend.ingress.host
-          value: api-staging.yas.local.com
-        - name: backend.ingress.path
-          value: /media
-        - name: backend.serviceMonitor.enabled
-          value: "false"
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: yas-staging
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: yas-staging-order
-  namespace: argocd
-spec:
-  project: default
-  source:
-    repoURL: https://github.com/CHANGE_ME/yas-gitops.git
-    targetRevision: main
-    path: charts/order
-    helm:
-      releaseName: order
-      parameters:
-        - name: backend.image.tag
-          value: v1.0.0
-        - name: backend.ingress.enabled
-          value: "true"
-        - name: backend.ingress.host
-          value: api-staging.yas.local.com
-        - name: backend.ingress.path
-          value: /order
-        - name: backend.serviceMonitor.enabled
-          value: "false"
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: yas-staging
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: yas-staging-payment
-  namespace: argocd
-spec:
-  project: default
-  source:
-    repoURL: https://github.com/CHANGE_ME/yas-gitops.git
-    targetRevision: main
-    path: charts/payment
-    helm:
-      releaseName: payment
-      parameters:
-        - name: backend.image.tag
-          value: v1.0.0
-        - name: backend.ingress.enabled
-          value: "true"
-        - name: backend.ingress.host
-          value: api-staging.yas.local.com
-        - name: backend.ingress.path
-          value: /payment
-        - name: backend.serviceMonitor.enabled
-          value: "false"
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: yas-staging
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: yas-staging-payment-paypal
-  namespace: argocd
-spec:
-  project: default
-  source:
-    repoURL: https://github.com/CHANGE_ME/yas-gitops.git
-    targetRevision: main
-    path: charts/payment-paypal
-    helm:
-      releaseName: payment-paypal
-      parameters:
-        - name: backend.image.tag
-          value: v1.0.0
-        - name: backend.ingress.enabled
-          value: "true"
-        - name: backend.ingress.host
-          value: api-staging.yas.local.com
-        - name: backend.ingress.path
-          value: /payment-paypal
-        - name: backend.serviceMonitor.enabled
-          value: "false"
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: yas-staging
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
   name: yas-staging-product
   namespace: argocd
 spec:
   project: default
   source:
-    repoURL: https://github.com/CHANGE_ME/yas-gitops.git
+    repoURL: https://github.com/TUNAS106/yas-gitops.git
     targetRevision: main
     path: charts/product
     helm:
@@ -499,114 +237,12 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: yas-staging-promotion
-  namespace: argocd
-spec:
-  project: default
-  source:
-    repoURL: https://github.com/CHANGE_ME/yas-gitops.git
-    targetRevision: main
-    path: charts/promotion
-    helm:
-      releaseName: promotion
-      parameters:
-        - name: backend.image.tag
-          value: v1.0.0
-        - name: backend.ingress.enabled
-          value: "true"
-        - name: backend.ingress.host
-          value: api-staging.yas.local.com
-        - name: backend.ingress.path
-          value: /promotion
-        - name: backend.serviceMonitor.enabled
-          value: "false"
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: yas-staging
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: yas-staging-rating
-  namespace: argocd
-spec:
-  project: default
-  source:
-    repoURL: https://github.com/CHANGE_ME/yas-gitops.git
-    targetRevision: main
-    path: charts/rating
-    helm:
-      releaseName: rating
-      parameters:
-        - name: backend.image.tag
-          value: v1.0.0
-        - name: backend.ingress.enabled
-          value: "true"
-        - name: backend.ingress.host
-          value: api-staging.yas.local.com
-        - name: backend.ingress.path
-          value: /rating
-        - name: backend.serviceMonitor.enabled
-          value: "false"
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: yas-staging
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: yas-staging-search
-  namespace: argocd
-spec:
-  project: default
-  source:
-    repoURL: https://github.com/CHANGE_ME/yas-gitops.git
-    targetRevision: main
-    path: charts/search
-    helm:
-      releaseName: search
-      parameters:
-        - name: backend.image.tag
-          value: v1.0.0
-        - name: backend.ingress.enabled
-          value: "true"
-        - name: backend.ingress.host
-          value: api-staging.yas.local.com
-        - name: backend.ingress.path
-          value: /search
-        - name: backend.serviceMonitor.enabled
-          value: "false"
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: yas-staging
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
   name: yas-staging-tax
   namespace: argocd
 spec:
   project: default
   source:
-    repoURL: https://github.com/CHANGE_ME/yas-gitops.git
+    repoURL: https://github.com/TUNAS106/yas-gitops.git
     targetRevision: main
     path: charts/tax
     helm:
@@ -631,105 +267,486 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: yas-staging-recommendation
-  namespace: argocd
-spec:
-  project: default
-  source:
-    repoURL: https://github.com/CHANGE_ME/yas-gitops.git
-    targetRevision: main
-    path: charts/recommendation
-    helm:
-      releaseName: recommendation
-      parameters:
-        - name: backend.image.tag
-          value: v1.0.0
-        - name: backend.ingress.enabled
-          value: "true"
-        - name: backend.ingress.host
-          value: api-staging.yas.local.com
-        - name: backend.ingress.path
-          value: /recommendation
-        - name: backend.serviceMonitor.enabled
-          value: "false"
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: yas-staging
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: yas-staging-webhook
-  namespace: argocd
-spec:
-  project: default
-  source:
-    repoURL: https://github.com/CHANGE_ME/yas-gitops.git
-    targetRevision: main
-    path: charts/webhook
-    helm:
-      releaseName: webhook
-      parameters:
-        - name: backend.image.tag
-          value: v1.0.0
-        - name: backend.ingress.enabled
-          value: "true"
-        - name: backend.ingress.host
-          value: api-staging.yas.local.com
-        - name: backend.ingress.path
-          value: /webhook
-        - name: backend.serviceMonitor.enabled
-          value: "false"
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: yas-staging
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: yas-staging-sampledata
-  namespace: argocd
-spec:
-  project: default
-  source:
-    repoURL: https://github.com/CHANGE_ME/yas-gitops.git
-    targetRevision: main
-    path: charts/sampledata
-    helm:
-      releaseName: sampledata
-      parameters:
-        - name: backend.image.tag
-          value: v1.0.0
-        - name: backend.ingress.enabled
-          value: "true"
-        - name: backend.ingress.host
-          value: api-staging.yas.local.com
-        - name: backend.ingress.path
-          value: /sampledata
-        - name: backend.serviceMonitor.enabled
-          value: "false"
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: yas-staging
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
+
+# Disabled services below are kept for future re-enable.
+# ---
+# disabled for lightweight ArgoCD demo: yas-staging-backoffice-bff
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: yas-staging-backoffice-bff
+#   namespace: argocd
+# spec:
+#   project: default
+#   source:
+#     repoURL: https://github.com/TUNAS106/yas-gitops.git
+#     targetRevision: main
+#     path: charts/backoffice-bff
+#     helm:
+#       releaseName: backoffice-bff
+#       parameters:
+#         - name: backend.image.tag
+#           value: v1.0.0
+#         - name: backend.ingress.host
+#           value: backoffice-staging.yas.local.com
+#         - name: backend.ingress.path
+#           value: /
+#         - name: backend.serviceMonitor.enabled
+#           value: "false"
+#   destination:
+#     server: https://kubernetes.default.svc
+#     namespace: yas-staging
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
+#     syncOptions:
+#       - CreateNamespace=true
+# ---
+# disabled for lightweight ArgoCD demo: yas-staging-backoffice-ui
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: yas-staging-backoffice-ui
+#   namespace: argocd
+# spec:
+#   project: default
+#   source:
+#     repoURL: https://github.com/TUNAS106/yas-gitops.git
+#     targetRevision: main
+#     path: charts/backoffice-ui
+#     helm:
+#       releaseName: backoffice-ui
+#       parameters:
+#         - name: ui.image.tag
+#           value: v1.0.0
+#   destination:
+#     server: https://kubernetes.default.svc
+#     namespace: yas-staging
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
+#     syncOptions:
+#       - CreateNamespace=true
+# ---
+# disabled for lightweight ArgoCD demo: yas-staging-inventory
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: yas-staging-inventory
+#   namespace: argocd
+# spec:
+#   project: default
+#   source:
+#     repoURL: https://github.com/TUNAS106/yas-gitops.git
+#     targetRevision: main
+#     path: charts/inventory
+#     helm:
+#       releaseName: inventory
+#       parameters:
+#         - name: backend.image.tag
+#           value: v1.0.0
+#         - name: backend.ingress.enabled
+#           value: "true"
+#         - name: backend.ingress.host
+#           value: api-staging.yas.local.com
+#         - name: backend.ingress.path
+#           value: /inventory
+#         - name: backend.serviceMonitor.enabled
+#           value: "false"
+#   destination:
+#     server: https://kubernetes.default.svc
+#     namespace: yas-staging
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
+#     syncOptions:
+#       - CreateNamespace=true
+# ---
+# disabled for lightweight ArgoCD demo: yas-staging-location
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: yas-staging-location
+#   namespace: argocd
+# spec:
+#   project: default
+#   source:
+#     repoURL: https://github.com/TUNAS106/yas-gitops.git
+#     targetRevision: main
+#     path: charts/location
+#     helm:
+#       releaseName: location
+#       parameters:
+#         - name: backend.image.tag
+#           value: v1.0.0
+#         - name: backend.ingress.enabled
+#           value: "true"
+#         - name: backend.ingress.host
+#           value: api-staging.yas.local.com
+#         - name: backend.ingress.path
+#           value: /location
+#         - name: backend.serviceMonitor.enabled
+#           value: "false"
+#   destination:
+#     server: https://kubernetes.default.svc
+#     namespace: yas-staging
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
+#     syncOptions:
+#       - CreateNamespace=true
+# ---
+# disabled for lightweight ArgoCD demo: yas-staging-media
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: yas-staging-media
+#   namespace: argocd
+# spec:
+#   project: default
+#   source:
+#     repoURL: https://github.com/TUNAS106/yas-gitops.git
+#     targetRevision: main
+#     path: charts/media
+#     helm:
+#       releaseName: media
+#       parameters:
+#         - name: backend.image.tag
+#           value: v1.0.0
+#         - name: backend.ingress.enabled
+#           value: "true"
+#         - name: backend.ingress.host
+#           value: api-staging.yas.local.com
+#         - name: backend.ingress.path
+#           value: /media
+#         - name: backend.serviceMonitor.enabled
+#           value: "false"
+#   destination:
+#     server: https://kubernetes.default.svc
+#     namespace: yas-staging
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
+#     syncOptions:
+#       - CreateNamespace=true
+# ---
+# disabled for lightweight ArgoCD demo: yas-staging-order
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: yas-staging-order
+#   namespace: argocd
+# spec:
+#   project: default
+#   source:
+#     repoURL: https://github.com/TUNAS106/yas-gitops.git
+#     targetRevision: main
+#     path: charts/order
+#     helm:
+#       releaseName: order
+#       parameters:
+#         - name: backend.image.tag
+#           value: v1.0.0
+#         - name: backend.ingress.enabled
+#           value: "true"
+#         - name: backend.ingress.host
+#           value: api-staging.yas.local.com
+#         - name: backend.ingress.path
+#           value: /order
+#         - name: backend.serviceMonitor.enabled
+#           value: "false"
+#   destination:
+#     server: https://kubernetes.default.svc
+#     namespace: yas-staging
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
+#     syncOptions:
+#       - CreateNamespace=true
+# ---
+# disabled for lightweight ArgoCD demo: yas-staging-payment
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: yas-staging-payment
+#   namespace: argocd
+# spec:
+#   project: default
+#   source:
+#     repoURL: https://github.com/TUNAS106/yas-gitops.git
+#     targetRevision: main
+#     path: charts/payment
+#     helm:
+#       releaseName: payment
+#       parameters:
+#         - name: backend.image.tag
+#           value: v1.0.0
+#         - name: backend.ingress.enabled
+#           value: "true"
+#         - name: backend.ingress.host
+#           value: api-staging.yas.local.com
+#         - name: backend.ingress.path
+#           value: /payment
+#         - name: backend.serviceMonitor.enabled
+#           value: "false"
+#   destination:
+#     server: https://kubernetes.default.svc
+#     namespace: yas-staging
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
+#     syncOptions:
+#       - CreateNamespace=true
+# ---
+# disabled for lightweight ArgoCD demo: yas-staging-payment-paypal
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: yas-staging-payment-paypal
+#   namespace: argocd
+# spec:
+#   project: default
+#   source:
+#     repoURL: https://github.com/TUNAS106/yas-gitops.git
+#     targetRevision: main
+#     path: charts/payment-paypal
+#     helm:
+#       releaseName: payment-paypal
+#       parameters:
+#         - name: backend.image.tag
+#           value: v1.0.0
+#         - name: backend.ingress.enabled
+#           value: "true"
+#         - name: backend.ingress.host
+#           value: api-staging.yas.local.com
+#         - name: backend.ingress.path
+#           value: /payment-paypal
+#         - name: backend.serviceMonitor.enabled
+#           value: "false"
+#   destination:
+#     server: https://kubernetes.default.svc
+#     namespace: yas-staging
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
+#     syncOptions:
+#       - CreateNamespace=true
+# ---
+# disabled for lightweight ArgoCD demo: yas-staging-promotion
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: yas-staging-promotion
+#   namespace: argocd
+# spec:
+#   project: default
+#   source:
+#     repoURL: https://github.com/TUNAS106/yas-gitops.git
+#     targetRevision: main
+#     path: charts/promotion
+#     helm:
+#       releaseName: promotion
+#       parameters:
+#         - name: backend.image.tag
+#           value: v1.0.0
+#         - name: backend.ingress.enabled
+#           value: "true"
+#         - name: backend.ingress.host
+#           value: api-staging.yas.local.com
+#         - name: backend.ingress.path
+#           value: /promotion
+#         - name: backend.serviceMonitor.enabled
+#           value: "false"
+#   destination:
+#     server: https://kubernetes.default.svc
+#     namespace: yas-staging
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
+#     syncOptions:
+#       - CreateNamespace=true
+# ---
+# disabled for lightweight ArgoCD demo: yas-staging-rating
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: yas-staging-rating
+#   namespace: argocd
+# spec:
+#   project: default
+#   source:
+#     repoURL: https://github.com/TUNAS106/yas-gitops.git
+#     targetRevision: main
+#     path: charts/rating
+#     helm:
+#       releaseName: rating
+#       parameters:
+#         - name: backend.image.tag
+#           value: v1.0.0
+#         - name: backend.ingress.enabled
+#           value: "true"
+#         - name: backend.ingress.host
+#           value: api-staging.yas.local.com
+#         - name: backend.ingress.path
+#           value: /rating
+#         - name: backend.serviceMonitor.enabled
+#           value: "false"
+#   destination:
+#     server: https://kubernetes.default.svc
+#     namespace: yas-staging
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
+#     syncOptions:
+#       - CreateNamespace=true
+# ---
+# disabled for lightweight ArgoCD demo: yas-staging-search
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: yas-staging-search
+#   namespace: argocd
+# spec:
+#   project: default
+#   source:
+#     repoURL: https://github.com/TUNAS106/yas-gitops.git
+#     targetRevision: main
+#     path: charts/search
+#     helm:
+#       releaseName: search
+#       parameters:
+#         - name: backend.image.tag
+#           value: v1.0.0
+#         - name: backend.ingress.enabled
+#           value: "true"
+#         - name: backend.ingress.host
+#           value: api-staging.yas.local.com
+#         - name: backend.ingress.path
+#           value: /search
+#         - name: backend.serviceMonitor.enabled
+#           value: "false"
+#   destination:
+#     server: https://kubernetes.default.svc
+#     namespace: yas-staging
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
+#     syncOptions:
+#       - CreateNamespace=true
+# ---
+# disabled for lightweight ArgoCD demo: yas-staging-recommendation
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: yas-staging-recommendation
+#   namespace: argocd
+# spec:
+#   project: default
+#   source:
+#     repoURL: https://github.com/TUNAS106/yas-gitops.git
+#     targetRevision: main
+#     path: charts/recommendation
+#     helm:
+#       releaseName: recommendation
+#       parameters:
+#         - name: backend.image.tag
+#           value: v1.0.0
+#         - name: backend.ingress.enabled
+#           value: "true"
+#         - name: backend.ingress.host
+#           value: api-staging.yas.local.com
+#         - name: backend.ingress.path
+#           value: /recommendation
+#         - name: backend.serviceMonitor.enabled
+#           value: "false"
+#   destination:
+#     server: https://kubernetes.default.svc
+#     namespace: yas-staging
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
+#     syncOptions:
+#       - CreateNamespace=true
+# ---
+# disabled for lightweight ArgoCD demo: yas-staging-webhook
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: yas-staging-webhook
+#   namespace: argocd
+# spec:
+#   project: default
+#   source:
+#     repoURL: https://github.com/TUNAS106/yas-gitops.git
+#     targetRevision: main
+#     path: charts/webhook
+#     helm:
+#       releaseName: webhook
+#       parameters:
+#         - name: backend.image.tag
+#           value: v1.0.0
+#         - name: backend.ingress.enabled
+#           value: "true"
+#         - name: backend.ingress.host
+#           value: api-staging.yas.local.com
+#         - name: backend.ingress.path
+#           value: /webhook
+#         - name: backend.serviceMonitor.enabled
+#           value: "false"
+#   destination:
+#     server: https://kubernetes.default.svc
+#     namespace: yas-staging
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
+#     syncOptions:
+#       - CreateNamespace=true
+# ---
+# disabled for lightweight ArgoCD demo: yas-staging-sampledata
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: yas-staging-sampledata
+#   namespace: argocd
+# spec:
+#   project: default
+#   source:
+#     repoURL: https://github.com/TUNAS106/yas-gitops.git
+#     targetRevision: main
+#     path: charts/sampledata
+#     helm:
+#       releaseName: sampledata
+#       parameters:
+#         - name: backend.image.tag
+#           value: v1.0.0
+#         - name: backend.ingress.enabled
+#           value: "true"
+#         - name: backend.ingress.host
+#           value: api-staging.yas.local.com
+#         - name: backend.ingress.path
+#           value: /sampledata
+#         - name: backend.serviceMonitor.enabled
+#           value: "false"
+#   destination:
+#     server: https://kubernetes.default.svc
+#     namespace: yas-staging
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
+#     syncOptions:
+#       - CreateNamespace=true
+#
