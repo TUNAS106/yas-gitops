@@ -1,7 +1,7 @@
 backend:
   image:
     repository: tunas106/yas-customer
-    tag: v1.0.6
+    tag: v1.0.7
   ingress:
     enabled: true
     host: api-staging.yas.local.com
